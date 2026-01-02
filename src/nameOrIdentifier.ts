@@ -92,7 +92,7 @@ export namespace NameOrIdentifier {
         if (namespaceNext === index || value[namespaceNext] !== 0x2e) return;
         let schema;
         if (typeof metadataContext === "object") {
-            schema = NameOrIdentifier.getMetadataRoot(metadataContext).schemas.filter(it => it.namespace === Utils.stringify(value, start, namespaceNext))[0];
+            schema = NameOrIdentifier.getMetadataRoot(metadataContext).schemas.filter((it: any) => it.namespace === Utils.stringify(value, start, namespaceNext))[0];
         }
         let name = NameOrIdentifier.entityTypeName(value, namespaceNext + 1, schema);
         if (!name) return;
@@ -106,7 +106,7 @@ export namespace NameOrIdentifier {
         if (namespaceNext === index || value[namespaceNext] !== 0x2e) return;
         let schema;
         if (typeof metadataContext === "object") {
-            schema = NameOrIdentifier.getMetadataRoot(metadataContext).schemas.filter(it => it.namespace === Utils.stringify(value, start, namespaceNext))[0];
+            schema = NameOrIdentifier.getMetadataRoot(metadataContext).schemas.filter((it: any) => it.namespace === Utils.stringify(value, start, namespaceNext))[0];
         }
         let name = NameOrIdentifier.complexTypeName(value, namespaceNext + 1, schema);
         if (!name) return;
@@ -162,8 +162,8 @@ export namespace NameOrIdentifier {
         if (!token) return;
 
         if (typeof metadataContext === "object") {
-            let entitySet;
-            metadataContext.dataServices.schemas.forEach(schema => schema.entityContainer.forEach(container => container.entitySets.filter((set) => {
+            let entitySet: any;
+            metadataContext.dataServices.schemas.forEach((schema: any) => schema.entityContainer.forEach((container: any) => container.entitySets.filter((set: any) => {
                 let eq = set.name === token.raw;
                 if (eq) entitySet = set;
                 return eq;
@@ -171,7 +171,7 @@ export namespace NameOrIdentifier {
             if (!entitySet) return;
 
             let entityType;
-            metadataContext.dataServices.schemas.forEach(schema => entitySet.entityType.indexOf(schema.namespace + ".") === 0 && schema.entityTypes.filter((type) => {
+            metadataContext.dataServices.schemas.forEach((schema: any) => entitySet.entityType.indexOf(schema.namespace + ".") === 0 && schema.entityTypes.filter((type: any) => {
                 let eq = type.name === entitySet.entityType.replace(schema.namespace + ".", "");
                 if (eq) entityType = type;
                 return eq;
@@ -189,7 +189,7 @@ export namespace NameOrIdentifier {
         if (!token) return;
 
         if (typeof schema === "object") {
-            let type = schema.entityTypes.filter(it => it.name === token.raw)[0];
+            let type = schema.entityTypes.filter((it: any) => it.name === token.raw)[0];
             if (!type) return;
             token.metadata = type;
         }
@@ -201,7 +201,7 @@ export namespace NameOrIdentifier {
         if (!token) return;
 
         if (typeof schema === "object") {
-            let type = schema.complexTypes.filter(it => it.name === token.raw)[0];
+            let type = schema.complexTypes.filter((it: any) => it.name === token.raw)[0];
             if (!type) return;
             token.metadata = type;
         }
@@ -260,13 +260,13 @@ export namespace NameOrIdentifier {
     export function isPrimitiveTypeName(type: string, metadataContext?: any): boolean {
         let root = NameOrIdentifier.getMetadataRoot(metadataContext);
         let schemas = root.schemas || (root.dataServices && root.dataServices.schemas) || [];
-        let schema = schemas.filter(function (it) { return type.indexOf(it.namespace + ".") === 0; })[0];
+        let schema = schemas.filter(function (it: any) { return type.indexOf(it.namespace + ".") === 0; })[0];
         if (schema) {
-            return ((schema.enumTypes && schema.enumTypes.filter(function (it) { return it.name === type.split(".").pop(); })[0]) ||
-                (schema.typeDefinitions && schema.typeDefinitions.filter(function (it) { return it.name === type.split(".").pop(); })[0])) &&
+            return ((schema.enumTypes && schema.enumTypes.filter(function (it: any) { return it.name === type.split(".").pop(); })[0]) ||
+                (schema.typeDefinitions && schema.typeDefinitions.filter(function (it: any) { return it.name === type.split(".").pop(); })[0])) &&
                 !(
-                    (schema.entityTypes && schema.entityTypes.filter(function (it) { return it.name === type.split(".").pop(); })[0]) ||
-                    (schema.complexTypes && schema.complexTypes.filter(function (it) { return it.name === type.split(".").pop(); })[0])
+                    (schema.entityTypes && schema.entityTypes.filter(function (it: any) { return it.name === type.split(".").pop(); })[0]) ||
+                    (schema.complexTypes && schema.complexTypes.filter(function (it: any) { return it.name === type.split(".").pop(); })[0])
                 );
         }
         return primitiveTypes.indexOf(type) >= 0;
@@ -289,7 +289,7 @@ export namespace NameOrIdentifier {
                     if (prop.type.indexOf("Collection") === 0 || !NameOrIdentifier.isPrimitiveTypeName(prop.type, metadataContext)) return;
                     token.metadata = prop;
 
-                    if (metadataContext.key && metadataContext.key.propertyRefs.filter(it => it.name === prop.name).length > 0) {
+                    if (metadataContext.key && metadataContext.key.propertyRefs.filter((it: any) => it.name === prop.name).length > 0) {
                         token.type = Lexer.TokenType.PrimitiveKeyProperty;
                     }
 
@@ -321,7 +321,7 @@ export namespace NameOrIdentifier {
                     if (prop.type.indexOf("Collection") === -1 || !NameOrIdentifier.isPrimitiveTypeName(prop.type.slice(11, -1), metadataContext)) return;
                     token.metadata = prop;
 
-                    if (metadataContext.key.propertyRefs.filter(it => it.name === prop.name).length > 0) {
+                    if (metadataContext.key.propertyRefs.filter((it: any) => it.name === prop.name).length > 0) {
                         token.type = Lexer.TokenType.PrimitiveKeyProperty;
                     }
 
@@ -344,10 +344,10 @@ export namespace NameOrIdentifier {
                 if (prop.name === token.raw) {
                     if (prop.type.indexOf("Collection") === 0 || NameOrIdentifier.isPrimitiveTypeName(prop.type, metadataContext)) return;
                     let root = NameOrIdentifier.getMetadataRoot(metadataContext);
-                    let schema = root.schemas.filter(it => prop.type.indexOf(it.namespace + ".") === 0)[0];
+                    let schema = root.schemas.filter((it: any) => prop.type.indexOf(it.namespace + ".") === 0)[0];
                     if (!schema) return;
 
-                    let complexType = schema.complexTypes.filter(it => it.name === prop.type.split(".").pop())[0];
+                    let complexType = schema.complexTypes.filter((it: any) => it.name === prop.type.split(".").pop())[0];
                     if (!complexType) return;
 
                     token.metadata = complexType;
@@ -370,10 +370,10 @@ export namespace NameOrIdentifier {
                 if (prop.name === token.raw) {
                     if (prop.type.indexOf("Collection") === -1 || NameOrIdentifier.isPrimitiveTypeName(prop.type.slice(11, -1), metadataContext)) return;
                     let root = NameOrIdentifier.getMetadataRoot(metadataContext);
-                    let schema = root.schemas.filter(it => prop.type.slice(11, -1).indexOf(it.namespace + ".") === 0)[0];
+                    let schema = root.schemas.filter((it: any) => prop.type.slice(11, -1).indexOf(it.namespace + ".") === 0)[0];
                     if (!schema) return;
 
-                    let complexType = schema.complexTypes.filter(it => it.name === prop.type.slice(11, -1).split(".").pop())[0];
+                    let complexType = schema.complexTypes.filter((it: any) => it.name === prop.type.slice(11, -1).split(".").pop())[0];
                     if (!complexType) return;
 
                     token.metadata = complexType;
@@ -419,10 +419,10 @@ export namespace NameOrIdentifier {
                 let prop = metadataContext.navigationProperties[i];
                 if (prop.name === token.raw && prop.type.indexOf("Collection") === -1 && !NameOrIdentifier.isPrimitiveTypeName(prop.type.slice(11, -1), metadataContext)) {
                     let root = NameOrIdentifier.getMetadataRoot(metadataContext);
-                    let schema = root.schemas.filter(it => prop.type.indexOf(it.namespace + ".") === 0)[0];
+                    let schema = root.schemas.filter((it: any) => prop.type.indexOf(it.namespace + ".") === 0)[0];
                     if (!schema) return;
 
-                    let entityType = schema.entityTypes.filter(it => it.name === prop.type.split(".").pop())[0];
+                    let entityType = schema.entityTypes.filter((it: any) => it.name === prop.type.split(".").pop())[0];
                     if (!entityType) return;
 
                     token.metadata = entityType;
@@ -442,10 +442,10 @@ export namespace NameOrIdentifier {
                 let prop = metadataContext.navigationProperties[i];
                 if (prop.name === token.raw && prop.type.indexOf("Collection") === 0 && !NameOrIdentifier.isPrimitiveTypeName(prop.type.slice(11, -1), metadataContext)) {
                     let root = NameOrIdentifier.getMetadataRoot(metadataContext);
-                    let schema = root.schemas.filter(it => prop.type.slice(11, -1).indexOf(it.namespace + ".") === 0)[0];
+                    let schema = root.schemas.filter((it: any) => prop.type.slice(11, -1).indexOf(it.namespace + ".") === 0)[0];
                     if (!schema) return;
 
-                    let entityType = schema.entityTypes.filter(it => it.name === prop.type.slice(11, -1).split(".").pop())[0];
+                    let entityType = schema.entityTypes.filter((it: any) => it.name === prop.type.slice(11, -1).split(".").pop())[0];
                     if (!entityType) return;
 
                     token.metadata = entityType;

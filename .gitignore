@@ -1,7 +1,26 @@
-node_modules
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+lib/
 src/*.js
-coverage
-docs
-report
-lib
+
+# Test/Coverage
+report/
+coverage/
+docs/
+
+# Logs
+*.log
 *.log*
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db

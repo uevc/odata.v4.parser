@@ -1,43 +1,63 @@
 {
-  "name": "odata-v4-parser",
-  "version": "0.1.29",
-  "description": "OData v4 Parser",
-  "main": "lib/parser.js",
+  "name": "@odata/parser",
+  "version": "0.2.0",
+  "type": "module",
+  "description": "Zero-dependency OData v4 Parser - outputs AST for any database backend",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "author": {
+    "name": "Bo Motlagh",
+    "email": "community@ue.ventures",
+    "url": "https://ue.ventures"
+  },
+  "contributors": [
+    {
+      "name": "JayStack",
+      "url": "https://github.com/jaystack"
+    }
+  ],
+  "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/jaystack/odata-v4-parser.git"
+    "url": "https://github.com/uevc/odata.v4.parser.git"
   },
   "bugs": {
-    "url": "https://github.com/jaystack/odata-v4-parser/issues"
+    "url": "https://github.com/uevc/odata.v4.parser/issues"
   },
-  "homepage": "https://github.com/jaystack/odata-v4-parser#readme",
-  "author": "JayStack",
-  "license": "MIT",
+  "homepage": "https://github.com/uevc/odata.v4.parser#readme",
+  "engines": {
+    "node": ">=18"
+  },
+  "packageManager": "yarn@1.22.22",
   "scripts": {
-    "prebuild": "npm run lint",
-    "build": "tsc",
-    "build:w": "tsc -w",
-    "lint": "tslint src/**/*.ts --fix",
-    "tdd": "concurrently \"tsc -w\" \"mocha -w\"",
-    "coverage": "rimraf coverage && tsc && node node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha test/**/*.spec.js --config=.istanbul.yaml -x config/**/*.js && node node_modules/remap-istanbul/bin/remap-istanbul -i coverage/coverage.json -o coverage/html-report -t html",
-    "typedoc": "typedoc --name \"JayStack OData v4 Parser\" --excludeExternals --excludeNotExported --hideGenerator --excludeExternals --excludePrivate --out docs src",
-    "pretest": "npm run build",
-    "test": "rimraf report && mocha test/**/*.spec.js --reporter mochawesome --reporter-options reportDir=report,reportFilename=index,reportTitle=\"JayStack OData V4 Parser\"",
-    "prepublish": "npm run test"
+    "build": "tsup",
+    "build:tsc": "tsc",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:build": "yarn build && yarn test",
+    "typecheck": "tsc --noEmit",
+    "clean": "rimraf dist lib"
   },
   "devDependencies": {
-    "chai": "^4.1.2",
-    "concurrently": "^3.5.1",
-    "istanbul": "^0.4.5",
-    "mocha": "^5.2.0",
-    "mochawesome": "^3.0.2",
-    "remap-istanbul": "^0.11.1",
-    "rimraf": "^2.6.2",
-    "tslint": "^5.10.0",
-    "typedoc": "^0.11.1",
-    "typedoc-default-themes": "^0.5.0",
-    "typedoc-plugin-external-module-name": "^1.1.1",
-    "typescript": "^2.9.1"
-  },
-  "typings": "lib/parser.d.ts"
+    "@types/node": "^20.10.0",
+    "@typescript-eslint/eslint-plugin": "^8.51.0",
+    "@typescript-eslint/parser": "^8.51.0",
+    "eslint": "^9.39.2",
+    "rimraf": "^5.0.5",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.2",
+    "vitest": "^2.0.0"
+  }
 }

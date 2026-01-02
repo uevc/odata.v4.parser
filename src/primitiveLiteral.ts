@@ -10,7 +10,7 @@ export namespace PrimitiveLiteral {
         if (Utils.equals(value, index, "true")) return Lexer.tokenize(value, index, index + 4, "Edm.Boolean", Lexer.TokenType.Literal);
         if (Utils.equals(value, index, "false")) return Lexer.tokenize(value, index, index + 5, "Edm.Boolean", Lexer.TokenType.Literal);
     }
-    export function guidValue(value, index): Lexer.Token {
+    export function guidValue(value: Utils.SourceArray, index: number): Lexer.Token {
         if (Utils.required(value, index, Lexer.HEXDIG, 8, 8) &&
             value[index + 8] === 0x2d &&
             Utils.required(value, index + 9, Lexer.HEXDIG, 4, 4) &&

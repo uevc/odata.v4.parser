@@ -700,7 +700,7 @@ export namespace Query {
 
     export function selectItem(value: Utils.SourceArray, index: number): Lexer.Token {
         let start = index;
-        let item;
+        let item: any;
         let op = Query.allOperationsInSchema(value, index);
         let star = Lexer.STAR(value, index);
         if (op > index) {
