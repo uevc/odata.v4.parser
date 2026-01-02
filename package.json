@@ -41,7 +41,7 @@
   },
   "packageManager": "yarn@1.22.22",
   "scripts": {
-    "prepare": "yarn build",
+    "prepack": "yarn build",
     "build": "tsup",
     "build:tsc": "tsc",
     "dev": "tsup --watch",
