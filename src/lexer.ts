@@ -166,6 +166,15 @@ export enum TokenType {
 export const LexerTokenType = TokenType;
 export type LexerTokenType = TokenType;
 
+export interface TokenInit {
+    position: number;
+    next: number;
+    value: any;
+    type: TokenType;
+    raw: string;
+    metadata?: any;
+}
+
 export class Token {
     position: number;
     next: number;
@@ -173,7 +182,7 @@ export class Token {
     type: TokenType;
     raw: string;
     metadata: any;
-    constructor(token) {
+    constructor(token: TokenInit) {
         this.position = token.position;
         this.next = token.next;
         this.value = token.value;
@@ -188,12 +197,12 @@ export type LexerToken = Token;
 
 export namespace Lexer {
     export type Token = LexerToken;
-    export const Token: typeof LexerToken = exports.Token;
+    export const Token = LexerToken;
     export type TokenType = LexerTokenType;
-    export const TokenType: typeof LexerTokenType = exports.TokenType;
+    export const TokenType = LexerTokenType;
 
     export function tokenize(value: Utils.SourceArray, index: number, next: number, tokenValue: any, tokenType: TokenType, metadataContextContainer?: Token): Token {
-        let token = new exports.Token({
+        let token = new LexerToken({
             position: index,
             next: next,
             value: tokenValue,
@@ -207,8 +216,8 @@ export namespace Lexer {
         return token;
     }
 
-    export function clone(token): Token {
-        return new exports.Token({
+    export function clone(token: Token): Token {
+        return new LexerToken({
             position: token.position,
             next: token.next,
             value: token.value,
@@ -228,7 +237,7 @@ export namespace Lexer {
     export function VCHAR(value: number): boolean { return value >= 0x21 && value <= 0x7e; }
 
     // punctuation
-    export function whitespaceLength(value, index) {
+    export function whitespaceLength(value: Utils.SourceArray, index: number) {
         if (Utils.equals(value, index, "%20") || Utils.equals(value, index, "%09")) return 3;
         else if (Lexer.SP(value[index]) || Lexer.HTAB(value[index]) || value[index] === 0x20 || value[index] === 0x09) return 1;
     }
