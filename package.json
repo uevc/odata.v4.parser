@@ -1,6 +1,6 @@
 {
   "name": "@uev/odata-parser",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "type": "module",
   "description": "Zero-dependency OData v4 Parser - outputs AST for any database backend",
   "publishConfig": {

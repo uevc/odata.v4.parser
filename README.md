@@ -1,4 +1,4 @@
-# @odata/parser
+# @uev/odata-parser
 
 Zero-dependency OData v4 parser that outputs an Abstract Syntax Tree (AST). Use with any database backend.
 
