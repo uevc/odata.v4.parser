@@ -1,8 +1,11 @@
 {
-  "name": "@odata/parser",
+  "name": "@uev/odata-parser",
   "version": "0.2.0",
   "type": "module",
   "description": "Zero-dependency OData v4 Parser - outputs AST for any database backend",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "dist/index.cjs",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -39,7 +42,7 @@
   "engines": {
     "node": ">=18"
   },
-  "packageManager": "yarn@1.22.22",
+  "packageManager": "yarn@4.9.4",
   "scripts": {
     "prepack": "yarn build",
     "build": "tsup",
