@@ -5,7 +5,7 @@
  *
  * @example
  * ```typescript
- * import { Parser, filter, query } from '@odata/parser';
+ * import { Parser, filter, query } from '@uelabs/odata-parser';
  *
  * // Using the Parser class
  * const parser = new Parser();

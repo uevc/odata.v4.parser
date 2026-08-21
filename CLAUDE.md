@@ -77,7 +77,7 @@ Future enhancements are documented in the `backlog/` directory.
 ## Usage Example
 
 ```typescript
-import { Parser } from '@odata/parser';
+import { Parser } from '@uelabs/odata-parser';
 
 const parser = new Parser();
 
