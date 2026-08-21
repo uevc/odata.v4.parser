@@ -1,4 +1,4 @@
-# @uev/odata-parser
+# @uelabs/odata-parser
 
 Zero-dependency OData v4 parser that outputs an Abstract Syntax Tree (AST). Use with any database backend.
 
@@ -13,15 +13,15 @@ Zero-dependency OData v4 parser that outputs an Abstract Syntax Tree (AST). Use 
 ## Installation
 
 ```bash
-yarn add @uev/odata-parser
+yarn add @uelabs/odata-parser
 # or
-npm install @uev/odata-parser
+npm install @uelabs/odata-parser
 ```
 
 ## Quick Start
 
 ```typescript
-import { Parser, filter, query } from '@uev/odata-parser';
+import { Parser, filter, query } from '@uelabs/odata-parser';
 
 // Using the Parser class
 const parser = new Parser();
@@ -104,7 +104,7 @@ if (!result) {
 ## AST Traversal
 
 ```typescript
-import { Parser, traverseAst, findAll, TokenType } from '@uev/odata-parser';
+import { Parser, traverseAst, findAll, TokenType } from '@uelabs/odata-parser';
 
 const parser = new Parser();
 const ast = parser.query("$filter=Name eq 'John'&$orderby=Age desc");
@@ -128,7 +128,7 @@ traverseAst({
 The parser outputs AST only. Here's how you'd convert to a database query:
 
 ```typescript
-import { Parser, traverseAst, TokenType } from '@uev/odata-parser';
+import { Parser, traverseAst, TokenType } from '@uelabs/odata-parser';
 
 function buildWhereClause(filterString: string): string {
   const parser = new Parser();
